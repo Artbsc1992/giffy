@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import getGifs from './services/getGifs';
 import './App.css';
 
 function App() {
-  const apiURL = 'https://api.giphy.com/v1/gifs/search?api_key=AZXFi0gvCDPNwoB1RpGg81kZckh53G4P&q=the+office&limit=25&offset=0&rating=g&lang=en';
+  
   const [gifs, setGifs] = useState([]);
 
  useEffect(() => {
-  fetch(apiURL)
-  .then(res => res.json())
-  .then(response => {
-    const { data } = response;
-    const gifs = data.map(img => img.images.downsized_medium.url)
-    setGifs(gifs)
-  })
+  getGifs().then(gifs => setGifs(gifs))
   // setGifs(GIFS_2)
-  
+
  }, [])
 
   return (
